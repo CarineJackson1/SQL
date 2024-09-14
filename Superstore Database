@@ -1,0 +1,22 @@
+SELECT * FROM superstore ORDER BY price;
+ SELECT AVG(price)
+FROM superstore
+WHERE category = 'Kitchen Supplies';
+
+
+
+#In this, I used SQL to query the Superstore database to get information about items sold at the store and their prices. 
+
+#Use a SELECT * FROM statement to to display the table and order
+in order of price. 
+SELECT * FROM superstore
+ORDER BY price;
+
+#Show a statistic about the item prices.
+SELECT avg(price)
+FROM superstore;
+
+#Show a statistic about the price for items in the category of "Kitchen Supplies". 
+SELECT avg(price)
+FROM superstore
+WHERE category="Kitchen Supplies"
