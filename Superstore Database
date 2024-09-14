@@ -1,4 +1,5 @@
 SELECT * FROM superstore ORDER BY price;
+
  SELECT AVG(price)
 FROM superstore
 WHERE category = 'Kitchen Supplies';
