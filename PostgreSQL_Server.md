@@ -15,7 +15,8 @@ This project demonstrates how to configure a PostgreSQL server with role-based a
 
 ## 🚀 Setup Instructions (Quick Start)
 1. Clone the repo or follow the [setup.md](./setup.md) guide.
-2. Install PostgreSQL:  
+2. 
+3. Install PostgreSQL:  
    ```bash
    sudo apt update
    sudo apt install postgresql postgresql-contrib
@@ -24,8 +25,8 @@ This project demonstrates how to configure a PostgreSQL server with role-based a
 
 CREATE ROLE analyst WITH LOGIN PASSWORD 'secure123';
 
-
 	4.	[Continue with short setup instructions…]
+	```
 
 🧪 Key Features & Demonstrations
 	•	✅ Role-based access control (GRANT/REVOKE)
