@@ -12,8 +12,7 @@ This project demonstrates how to configure a PostgreSQL server with role-based a
 
 ## 🚀 Setup Instructions (Quick Start)
 1. Clone the repo or follow the [setup.md](./setup.md) guide.
-2. 
-3. Install PostgreSQL:  
+2. Install PostgreSQL:  
    ```bash
    sudo apt update
    sudo apt install postgresql postgresql-contrib
@@ -38,11 +37,13 @@ PostgreSQL Audit Log
 Role Creation	
 SQL Injection Attempt	
 
+
 🧠 What I Learned
 	•	Importance of least-privilege access to secure sensitive data
 	•	How to log and monitor database activities with pgaudit
 	•	How attackers exploit insecure SQL endpoints
 	•	How to set up basic SIEM integration and alerting
+
 
 🛡️ Security Best Practices Applied
 	•	Principle of Least Privilege (PoLP)
