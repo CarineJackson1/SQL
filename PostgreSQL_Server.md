@@ -5,13 +5,10 @@
 This project demonstrates how to configure a PostgreSQL server with role-based access control and auditing using pgAudit. It simulates real-world scenarios of user access management and monitoring unauthorized activities.
 
 ## 🧰 Tools & Technologies Used
-- Operating System: Ubuntu 22.04 LTS
 - PostgreSQL 14
-- pgAdmin (optional)
 - pgAudit
 - Nmap / Wireshark 
 - Burp Suite / DVWA (for web-based SQLi projects)
-- ELK Stack / Splunk (for logging)
 
 ## 🚀 Setup Instructions (Quick Start)
 1. Clone the repo or follow the [setup.md](./setup.md) guide.
