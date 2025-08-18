@@ -20,13 +20,13 @@ This project demonstrates how to configure a PostgreSQL server with role-based a
    ```bash
    sudo apt update
    sudo apt install postgresql postgresql-contrib
-
-	3.	Create user roles:
-
-CREATE ROLE analyst WITH LOGIN PASSWORD 'secure123';
-
-	4.	[Continue with short setup instructions…]
 	```
+```bash
+ 3.	Create user roles:
+
+ CREATE ROLE analyst WITH LOGIN PASSWORD 'secure123';
+	4.	[Continue with short setup instructions…]
+```
 
 🧪 Key Features & Demonstrations
 	•	✅ Role-based access control (GRANT/REVOKE)
