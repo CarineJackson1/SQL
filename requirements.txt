@@ -1,0 +1,20 @@
+# Basic machine learning / data science libraries
+numpy>=1.25
+pandas>=2.2
+scipy>=1.11
+scikit-learn>=1.3.0
+matplotlib>=3.8
+seaborn>=0.12
+joblib>=1.3
+notebook>=7.0.0
+jupyterlab>=4.0
+
+# Optional / commented-out heavy frameworks (uncomment to install)
+# tensorflow>=2.14
+# torch>=2.2.0
+# torchvision>=0.15.2
+# torchaudio>=2.2.0
+
+# Interactive visualization and statistical modeling libraries
+plotly>=6.3
+statsmodels>=0.14
