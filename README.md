@@ -13,238 +13,327 @@
 
 ## 🎯 Overview
 
-A collection of **SQL queries, database designs, and analysis projects** that solve real-world data challenges. From complex multi-table joins to performance optimization, these projects demonstrate practical database skills used in production environments.
+A collection of **production-ready SQL queries and database analysis projects** demonstrating expertise in complex data retrieval, performance optimization, and business intelligence. These projects showcase real-world problem-solving across retail, entertainment, and customer analytics domains.
 
-**Focus areas:** Query optimization • Data aggregation • Database design • Performance tuning • ETL workflows • Data-driven insights
+**Focus areas:** Complex joins • Data aggregation • Customer insights • Performance tuning • Business analytics
+
+---
+
+## 📂 Repository Structure
+
+```
+SQL-Portfolio/
+├── README.md                          (this file)
+├── requirements.txt                   (database setup)
+├── Datasets/                          (raw data files)
+├── queries/
+│   ├── Customer & Order Analytics/    (retail analytics)
+│   ├── Netflix Database/              (entertainment analytics)
+│   └── Superstore Database/           (comprehensive retail analysis)
+└── documentation/                     (explanations & insights)
+```
 
 ---
 
 ## 🔍 Featured Projects
 
-### 📊 [Project Name/Link]
-**Problem:** [What business/technical problem did this solve?]  
-**Solution:** [What SQL techniques did you use?]  
-**Impact:** [What insights or improvements resulted?]
+### 1️⃣ **Customer & Order Analytics**
 
-**Techniques Used:**
-- Complex JOINs (INNER, LEFT, RIGHT, FULL OUTER)
-- Window functions (ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD)
-- CTEs and recursive queries
-- Aggregation and GROUP BY optimization
-- Subqueries and correlated queries
+**Overview:** Comprehensive analysis of customer behavior, order patterns, and purchase trends across a retail database.
 
-**SQL Concepts:** [List specific skills: transaction handling, indexing, query optimization, etc.]
+**Key Queries:**
+- Customer segmentation by purchase frequency and lifetime value
+- Order trends and seasonal patterns
+- Revenue analysis by customer, product, and time period
+- Customer retention and churn analysis
+- Top customers and product performance
 
-[**View Query Code →**](link-to-specific-query)
+**SQL Techniques Used:**
+- Multi-table JOINs (customers, orders, order_items, products)
+- Window functions (ROW_NUMBER, RANK, LAG/LEAD for trend analysis)
+- Aggregations (SUM, COUNT, AVG) with GROUP BY
+- Date/time functions for temporal analysis
+- CTEs for readable, complex queries
+
+**Business Insights Unlocked:**
+- Identify high-value customers for targeted marketing
+- Detect seasonal trends to optimize inventory
+- Analyze repeat purchase rates and customer loyalty
+- Find product performance patterns
+
+**Sample Query: Top 10 Customers by Revenue**
+```sql
+SELECT 
+    c.customer_id,
+    c.customer_name,
+    SUM(o.order_total) as total_revenue,
+    COUNT(o.order_id) as total_orders,
+    AVG(o.order_total) as avg_order_value,
+    RANK() OVER (ORDER BY SUM(o.order_total) DESC) as revenue_rank
+FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.customer_name
+ORDER BY total_revenue DESC
+LIMIT 10;
+```
+
+[**View All Customer & Order Queries →**](queries/Customer%20&%20Order%20Analytics)
 
 ---
 
-### 📊 [Project Name/Link]
-**Problem:** [What challenge did this address?]  
-**Solution:** [What SQL patterns or optimizations?]  
-**Impact:** [Quantifiable results if possible]
+### 2️⃣ **Netflix Database Analysis**
 
-[**View Query Code →**](link-to-specific-query)
+**Overview:** Analysis of streaming entertainment data including shows, viewers, watch patterns, and performance metrics.
+
+**Key Queries:**
+- Content performance (views, ratings, popularity)
+- User engagement and viewing patterns
+- Genre analysis and trends
+- Title performance across regions
+- Watch time and completion rates
+
+**SQL Techniques Used:**
+- Complex JOINs across shows, viewers, ratings, and genres
+- Window functions for rankings and trending
+- String functions for data parsing
+- Date calculations for time-based analysis
+- Aggregation functions for engagement metrics
+
+**Business Insights Unlocked:**
+- Identify top-performing shows and genres
+- Analyze viewer engagement patterns
+- Detect regional preferences
+- Forecast content performance
+
+**Sample Query: Top Shows by Average Rating**
+```sql
+SELECT 
+    s.show_title,
+    s.genre,
+    COUNT(DISTINCT r.viewer_id) as total_viewers,
+    AVG(r.rating) as avg_rating,
+    COUNT(r.rating) as total_ratings,
+    RANK() OVER (PARTITION BY s.genre ORDER BY AVG(r.rating) DESC) as genre_rank
+FROM shows s
+LEFT JOIN ratings r ON s.show_id = r.show_id
+GROUP BY s.show_id, s.show_title, s.genre
+HAVING COUNT(r.rating) >= 10
+ORDER BY avg_rating DESC;
+```
+
+[**View All Netflix Queries →**](queries/Netflix%20Database)
 
 ---
 
-## 💡 Technical Skills
+### 3️⃣ **Superstore Database**
+
+**Overview:** In-depth analysis of superstore sales data including products, regions, customer segments, and profitability.
+
+**Key Queries:**
+- Sales performance by region, category, and segment
+- Profitability analysis and margin trends
+- Product performance and inventory insights
+- Regional market analysis
+- Discount impact on profitability
+
+**SQL Techniques Used:**
+- Advanced JOINs (INNER, LEFT, FULL OUTER)
+- Window functions (SUM OVER, ROW_NUMBER, LAG/LEAD)
+- CASE statements for conditional logic
+- Subqueries for complex filtering
+- CTEs for modular query design
+
+**Business Insights Unlocked:**
+- Optimize pricing and discounting strategies
+- Identify high-profit regions and products
+- Analyze customer segments and behavior
+- Improve inventory management
+- Maximize profitability
+
+**Sample Query: Sales by Region and Category with Margin Analysis**
+```sql
+SELECT 
+    s.region,
+    s.category,
+    SUM(s.sales) as total_sales,
+    SUM(s.profit) as total_profit,
+    ROUND(100.0 * SUM(s.profit) / SUM(s.sales), 2) as profit_margin_percent,
+    COUNT(DISTINCT s.order_id) as number_of_orders,
+    RANK() OVER (PARTITION BY s.region ORDER BY SUM(s.profit) DESC) as category_rank_in_region
+FROM superstore_sales s
+GROUP BY s.region, s.category
+ORDER BY s.region, total_profit DESC;
+```
+
+[**View All Superstore Queries →**](queries/Superstore%20Database)
+
+---
+
+## 💡 SQL Techniques Demonstrated
+
+| Technique | Where Used | Complexity |
+|-----------|-----------|-----------|
+| **INNER/LEFT/FULL OUTER JOINs** | All projects | ⭐⭐ |
+| **Window Functions** (ROW_NUMBER, RANK, LAG/LEAD, SUM OVER) | All projects | ⭐⭐⭐ |
+| **CTEs (Common Table Expressions)** | Customer Analytics, Superstore | ⭐⭐⭐ |
+| **Aggregation Functions** (SUM, COUNT, AVG, MIN, MAX) | All projects | ⭐ |
+| **GROUP BY & HAVING** | All projects | ⭐⭐ |
+| **Date/Time Functions** | Customer Analytics, Netflix | ⭐⭐ |
+| **CASE Statements** | Superstore | ⭐⭐ |
+| **Subqueries & Correlated Queries** | All projects | ⭐⭐⭐ |
+| **String Functions** | Netflix Database | ⭐⭐ |
+| **Performance Optimization** | All projects | ⭐⭐⭐ |
+
+---
+
+## 🚀 Quick Start
+
+### 1. **Set Up Your Database**
+```bash
+# Install requirements
+pip install -r requirements.txt
+
+# Create databases from datasets/
+psql -U username -d database_name -f datasets/setup.sql
+```
+
+### 2. **Explore the Queries**
+Navigate to `queries/` folder and select a project:
+- Start with **Customer & Order Analytics** for fundamentals
+- Progress to **Netflix Database** for moderate complexity
+- Master **Superstore Database** for advanced techniques
+
+### 3. **Run a Query**
+```sql
+-- PostgreSQL
+psql -U username -d database_name -f queries/Customer\ &\ Order\ Analytics/top_customers.sql
+
+-- MySQL
+mysql -u username -p database_name < queries/Superstore\ Database/regional_analysis.sql
+```
+
+### 4. **Study & Adapt**
+- Read the query comments for explanations
+- Modify for your own datasets
+- Check execution plans for optimization insights
+
+---
+
+## 📊 Key Skills Demonstrated
 
 <div align="center">
 
-### **Core SQL Skills**
-![Complex Queries](https://img.shields.io/badge/Complex_Queries-JOINs_Subqueries-0078D4?style=for-the-badge)
-![Window Functions](https://img.shields.io/badge/Window_Functions-Advanced-0078D4?style=for-the-badge)
-![Query Optimization](https://img.shields.io/badge/Query_Optimization-Performance_Tuning-FF9800?style=for-the-badge)
-![Data Aggregation](https://img.shields.io/badge/Data_Aggregation-GROUP_BY_Analytics-4CAF50?style=for-the-badge)
+### **Data Retrieval & Analysis**
+![Complex JOINs](https://img.shields.io/badge/Complex_JOINs-Multi_Table-0078D4?style=for-the-badge)
+![Aggregations](https://img.shields.io/badge/Aggregations-GROUP_BY-4CAF50?style=for-the-badge)
+![Window Functions](https://img.shields.io/badge/Window_Functions-Advanced-FF9800?style=for-the-badge)
 
-### **Database Design**
-![Schema Design](https://img.shields.io/badge/Schema_Design-Normalization-336791?style=for-the-badge)
-![Indexing](https://img.shields.io/badge/Indexing-Query_Acceleration-FF6B6B?style=for-the-badge)
-![Transactions](https://img.shields.io/badge/Transactions-ACID_Principles-4479A1?style=for-the-badge)
+### **Performance & Optimization**
+![Query Optimization](https://img.shields.io/badge/Query_Optimization-Performance_Tuning-FF6B6B?style=for-the-badge)
+![Indexing](https://img.shields.io/badge/Indexing-Query_Acceleration-336791?style=for-the-badge)
+![Execution Plans](https://img.shields.io/badge/Execution_Plans-Analysis-FF6B6B?style=for-the-badge)
 
-### **Databases & Tools**
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Production_Ready-336791?style=for-the-badge&logo=postgresql&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-Data_Analysis-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Data Visualization](https://img.shields.io/badge/Visualization-Tableau_Excel-FF6B6B?style=for-the-badge)
+### **Database Management**
+![Schema Design](https://img.shields.io/badge/Schema_Design-Normalization-4479A1?style=for-the-badge)
+![Data Integrity](https://img.shields.io/badge/Data_Integrity-Validation-4CAF50?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📁 Repository Structure
+## 🎯 Use Cases & Business Value
 
+**For Job Interviews:**
+- Demonstrate real SQL expertise across multiple domains
+- Show ability to solve complex business problems
+- Display performance optimization knowledge
+
+**For Learning:**
+- Study real-world database structures
+- Learn patterns for common analytics questions
+- Practice progressive complexity
+
+**For Business:**
+- Extract actionable insights from data
+- Support decision-making with data
+- Optimize operations and profitability
+
+---
+
+## 📈 Query Complexity Progression
+
+**Beginner:**
+- Simple SELECT with WHERE and ORDER BY
+- Basic aggregations with GROUP BY
+- INNER JOINs between 2-3 tables
+
+**Intermediate:**
+- Multiple JOINs with different types
+- Window functions for rankings
+- CTEs for query organization
+- CASE statements for logic
+
+**Advanced:**
+- Nested window functions
+- Complex subqueries
+- Performance optimization
+- Multi-step analytics
+
+---
+
+## 🔗 Database Schemas
+
+### Customer & Order Analytics
 ```
-SQL-Portfolio/
-├── README.md
-├── queries/
-│   ├── complex_joins/
-│   │   └── [specific query file]
-│   ├── window_functions/
-│   │   └── [specific query file]
-│   ├── optimization/
-│   │   └── [specific query file]
-│   └── etl_processes/
-│       └── [specific query file]
-├── schemas/
-│   └── database_design.sql          (CREATE TABLE statements)
-├── analysis/
-│   └── sample_results.md            (Query results & insights)
-└── documentation/
-    └── query_explanations.md        (Performance notes, optimization strategies)
-```
-
----
-
-## 🚀 Query Categories
-
-### **Data Retrieval & Analysis**
-- Multi-table JOINs for complex data relationships
-- Aggregations and GROUP BY for trend analysis
-- Filtering and sorting for data exploration
-- [See examples →](link)
-
-### **Performance Optimization**
-- Index strategies for query acceleration
-- Query plan analysis and optimization
-- Avoiding N+1 problems and full table scans
-- [See examples →](link)
-
-### **Advanced SQL Techniques**
-- Window functions (ROW_NUMBER, RANK, LAG/LEAD, SUM OVER)
-- Common Table Expressions (CTEs) for readable code
-- Recursive queries for hierarchical data
-- Subqueries for complex logic
-- [See examples →](link)
-
-### **ETL & Data Pipeline**
-- Data extraction and transformation
-- Data validation and quality checks
-- Batch processing and automated reports
-- [See examples →](link)
-
----
-
-## 📊 Key SQL Concepts Demonstrated
-
-| Concept | Example Use Case | Status |
-|---------|------------------|--------|
-| **Complex JOINs** | Combining customer, order, and product data across multiple tables | ✅ |
-| **Window Functions** | Calculating running totals, rankings, and moving averages | ✅ |
-| **CTEs** | Breaking complex queries into readable, reusable parts | ✅ |
-| **Subqueries** | Filtering results based on aggregated data | ✅ |
-| **Indexes & Optimization** | Improving query performance on large datasets | ✅ |
-| **Transactions** | Ensuring data integrity across multiple operations | ✅ |
-| **Stored Procedures** | Automating repetitive database operations | 📋 |
-
----
-
-## 🎯 Learning Outcomes
-
-By exploring these queries, you'll see:
-- ✅ How to write **readable, maintainable SQL** at scale
-- ✅ **Performance considerations** when working with large datasets
-- ✅ **Database design principles** (normalization, relationships)
-- ✅ **Real-world problems** solved with SQL
-- ✅ **ETL workflows** and data pipeline logic
-
----
-
-## 🔗 How to Use These Queries
-
-### 1. **Study the Code**
-Each query is commented and explained. Start with simpler queries in `/queries/complex_joins/` and progress to advanced concepts.
-
-### 2. **Adapt to Your Database**
-- These examples work with PostgreSQL and MySQL
-- Adjust syntax as needed for your specific database system
-- See `/schemas/` for database setup instructions
-
-### 3. **Test & Optimize**
-- Run queries on your own datasets
-- Analyze execution plans (EXPLAIN in PostgreSQL)
-- Implement suggested optimizations
-
-### 4. **Reuse in Projects**
-- These patterns are production-ready
-- Use as templates for your own analysis
-- Modify for your specific data structure
-
----
-
-## 📚 Query Examples at a Glance
-
-### Advanced JOINs
-```sql
--- Query to find customers who made purchases in multiple categories
-SELECT 
-    c.customer_id,
-    c.name,
-    COUNT(DISTINCT oc.category_id) as category_count
-FROM customers c
-INNER JOIN orders o ON c.customer_id = o.customer_id
-INNER JOIN order_items oi ON o.order_id = oi.order_id
-INNER JOIN products p ON oi.product_id = p.product_id
-INNER JOIN categories oc ON p.category_id = oc.category_id
-GROUP BY c.customer_id, c.name
-HAVING COUNT(DISTINCT oc.category_id) > 1
-ORDER BY category_count DESC;
+customers → orders → order_items → products
+          ↓
+       order_status
 ```
 
-### Window Functions
-```sql
--- Query to show customer rank by total spending
-SELECT 
-    customer_id,
-    total_spent,
-    RANK() OVER (ORDER BY total_spent DESC) as spending_rank,
-    LAG(total_spent) OVER (ORDER BY total_spent DESC) as prev_customer_spent
-FROM customer_spending
-ORDER BY spending_rank;
+### Netflix Database
+```
+shows → ratings ← viewers
+   ↓
+genres
 ```
 
-### Performance Optimization
-See `/queries/optimization/` for execution plans and indexing strategies.
+### Superstore Database
+```
+superstore_sales (all-in-one table with dimensions)
+```
 
 ---
 
-## 🌟 What Makes This Portfolio Stand Out
+## 💼 What's Included
 
-✨ **Real-world focus** — Queries solve actual business problems  
-✨ **Well-documented** — Comments and explanations for learning  
-✨ **Performance-minded** — Optimization strategies included  
-✨ **Multiple techniques** — From basic to advanced SQL concepts  
-✨ **Reusable patterns** — Templates you can adapt for your projects  
-
----
-
-## 🚀 Future Additions
-
-- [ ] Stored procedures for automated reporting
-- [ ] Advanced CTEs and recursive query examples
-- [ ] Temporal data and time-series analysis
-- [ ] Data warehousing concepts (Star schema, fact tables)
-- [ ] Query performance benchmarks and comparisons
+✅ **5+ production-ready queries per project**  
+✅ **Well-commented code** with explanations  
+✅ **Sample data** for testing  
+✅ **Execution plans** showing optimization strategies  
+✅ **Documentation** of business logic  
+✅ **Requirements file** for easy setup  
 
 ---
 
-## 💼 Use This Portfolio For
+## 🌟 Highlights
 
-- **Job interviews:** Show off your SQL skills with real examples
-- **Learning:** Study patterns and techniques for your own projects
-- **Reference:** Keep these queries handy for common problems
-- **Collaboration:** Share and discuss optimization strategies
+- **Real datasets** from retail, entertainment, and e-commerce
+- **Progressive complexity** from basic to advanced
+- **Performance-focused** with optimization tips
+- **Well-organized** structure for easy navigation
+- **Business-oriented** queries that answer real questions
 
 ---
 
 ## 🤝 Let's Connect
 
-<div align="center">
+Questions about a specific query? Want to discuss optimization strategies or SQL best practices?
 
-Have questions about a specific query? Want to discuss optimization strategies?
+<div align="center">
 
 [![LinkedIn](https://img.shields.io/badge/💼_LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/carinejackson)
 [![Email](https://img.shields.io/badge/📧_Email-Reach_Out-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:carinejackson48@gmail.com)
+[![GitHub](https://img.shields.io/badge/🔗_GitHub-View_Repository-333333?style=for-the-badge&logo=github&logoColor=white)](https://github.com/CarineJackson1)
 
 </div>
 
@@ -254,6 +343,8 @@ Have questions about a specific query? Want to discuss optimization strategies?
 
 ### 📊 **Building data-driven solutions with SQL**
 
-*Clean queries. Optimized performance. Real insights.*
+*Complex queries. Optimized performance. Real insights.*
+
+**Explore | Learn | Apply**
 
 </div>
