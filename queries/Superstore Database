@@ -1,4 +1,14 @@
-#In this, I used SQL to query the Superstore database to get information about items sold at the store and their prices.
+-- ========================================
+-- Superstore Database Analysis
+-- ========================================
+-- Using SQL to query the Superstore database to get 
+-- information about items sold and their prices
+-- ========================================
+
+
+-- ========================================
+-- Database Schema
+-- ========================================
 
 CREATE TABLE superstore (
     item_id INTEGER PRIMARY KEY,
@@ -26,21 +36,33 @@ VALUES
     (13, 'Slow Cooker', 'Appliances', 49.95, 30, 4.7),
     (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
- 
 
-#Use a SELECT * FROM statement to to display the table and order by price.
 
-in order of price. 
-SELECT * FROM superstore
+-- ========================================
+-- 1. Display All Items by Price
+-- ========================================
+-- Display the entire table ordered by price
+
+SELECT * 
+FROM superstore
 ORDER BY price;
 
-#Show a statistic about the average item prices.
 
-SELECT avg(price)
+-- ========================================
+-- 2. Average Item Price
+-- ========================================
+-- Show a statistic about the average item prices
+
+SELECT AVG(price) AS average_price
 FROM superstore;
 
-#Show a statistic about the price for items in the category of "Kitchen Supplies". 
 
-SELECT avg(price)
+-- ========================================
+-- 3. Average Price by Category
+-- ========================================
+-- Show a statistic about the price for items in the 
+-- category of "Kitchen Supplies"
+
+SELECT AVG(price) AS avg_kitchen_price
 FROM superstore
-WHERE category="Kitchen Supplies"
+WHERE category = 'Kitchen Supplies';
